@@ -1,6 +1,8 @@
+int t = 0;//time-tracking variable
 void setup()
 {
   size(800, 600);
+  frameRate(30);
 }
 void draw()
 {
@@ -10,7 +12,13 @@ void draw()
   {
     drawCircleAt(mouseX, mouseY);
   }
+  drawTimeDisks(t);
   drawCenterSquare();
+  t++;//increment time variable
+  if(t >= 300)//every 10 seconds
+  {
+    t = 0;//reset t
+  }
 }
 void drawRandomCircle()
 {
@@ -36,4 +44,14 @@ void drawMouseCircle(int r, int g, int b)
   noStroke();
   fill(r, g, b);//fill with the inputted color
   ellipse(mouseX, mouseY, 30, 30);//draw circle at the mouse's location
+}
+void drawTimeDisks(int time)
+{
+  stroke(0);
+  int shade = (int)map(time, 0, 300, 255, 0);//create a shade of gray that gets darker as time increases
+  fill(shade);//fill with the calculated shade of gray
+  for(int i = 25; i < width; i += 100)//starting at x=25, every 100 pixels until the edge of the canvas
+  {
+    ellipse(i, map(time, 0, 300, 25, height - 25), 50, 50);//draw a circle with a y coordinate that increases as time increases
+  }
 }
