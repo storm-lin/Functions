@@ -14,6 +14,10 @@ void draw()
   }
   drawTimeDisks(t);
   drawCenterSquare();
+  for(int i = 0; i <= width; i += 10)
+  {
+    drawSineValue(i, map(t, 0, 300, 0, 360));
+  }
   t++;//increment time variable
   if(t >= 300)//every 10 seconds
   {
@@ -54,4 +58,10 @@ void drawTimeDisks(int time)
   {
     ellipse(i, map(time, 0, 300, 25, height - 25), 50, 50);//draw a circle with a y coordinate that increases as time increases
   }
+}
+void drawSineValue(float x, float startAngle)
+{
+  float angle = startAngle + map(x, 0, width, 0, 360);
+  fill(255);
+  ellipse(x, map(sin(radians(angle)), -1, 1, height, 0), 10, 10);
 }
